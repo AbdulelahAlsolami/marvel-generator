@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Create Account</h2>
+
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+
+  <button onclick="register()">Register</button>
+
+  <p>Already have account? <a href="login.html">Login here</a></p>
+</div>
+
+<script type="module">
+import { supabase } from './js/supabase.js';
+
+async function register() {
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+
+  const { error } = await supabase.auth.signUp({
+    email,
+    password
+  });
+
+  if (error) {
+    alert(error.message);
+  } else {
+    alert("Account created successfully!");
+    window.location.href = "login.html";
+  }
+}
+
+window.register = register;
+</script>
+
+</body>
+</html>
